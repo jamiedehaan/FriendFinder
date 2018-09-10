@@ -2,13 +2,16 @@ var bodyParser = require(body-parser);
 var express = require(express);
 var path = require(path);
 
-//A GET Route to /survey which should display the survey page.
-//A default, catch-all route that leads to home.html which displays the home page.
+var app = express();
 
-app.get("/survey.js", function (req, res) {
-    res.send("survey.js")
-  })
+var htmlRoutes = function(app, path) {
+  app.get("/survey", function (req, res) {
+    res.sendFile(path.join(_dirname, "survey.html"));
+  });
 
-app.get("/home.html", function (req, res) {
-    res.send("home.html")
-  })
+app.get("/*", function (req, res) {
+    res.sendFile(path.join(_dirname, "home.html"));
+  });
+}
+
+module.exports = htmlRoutes;
