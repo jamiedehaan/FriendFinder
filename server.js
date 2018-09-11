@@ -8,9 +8,7 @@ var PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
-// app.use(express.static("public"));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "./app/public")));
 
 var friendsArray = require("./app/data/friends.js");
 require("./app/routing/apiRoutes")(app, friendsArray);

@@ -29,6 +29,7 @@ module.exports = function (app) {
     };
 
     var scoreDiff;
+    
     for (var i = 0; i < friendsArray.length; i++) {
       var checkFriend = friendsArray[i];
       newDiff = 0;
