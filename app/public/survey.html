@@ -2,31 +2,34 @@
 <html>
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <title>Friend Finder Survey</title>
-    <!-- Bootstrap: -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+
 </head>
 
 <body>
-    
+
     <h1>Survey Questions</h1>
     <hr>
     <form>
         <h2>About You</h2>
         <div class="form-group">
-            <label for="name">Name(Required)</label>
+            <label for="name">Name (Required)</label>
             <input type="text" class="form-control" id="name" required>
         </div>
         <div class="form-group">
-            <label for="photo">Link to Photo Image(Required)</label>
+            <label for="photo">Link to Photo Image (Required)</label>
             <input type="text" class="form-control" id="photo" required>
         </div>
         <h2>1:</h2>
-        <h4>You are Always Down For An Adventure.</h4>
+        <h4>You are always down for an adventure.</h4>
         <select class="chosen-select" id="q1">
             <option value=""></option>
             <option value="1">1 (Strongly Disagree)</option>
@@ -128,12 +131,34 @@
         <br>
         <br>
         <br>
-        <button type="submit" class="btn btn-success btn-lg btn-block">Submit</button>
+        <button type="submit" id="submit" data-toggle="modal" data-target="exampleModalCenter" class="btn btn-success btn-lg btn-block">Submit</button>
         <br>
         <br>
     </form>
 
+    <div class="modal fade" id="matchModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Best Match</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h5 id="matchName"></h5>
+                    <img id="matchPicture" src="">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript">
+
         var config = {
             ".chosen-select": {},
             ".chosen-select-deselect": {
@@ -156,6 +181,7 @@
 
         $("#submit").on("click", function (event) {
             event.preventDefault();
+            console.log("working");
 
             function validateForm() {
                 var isValid = true;
@@ -200,6 +226,9 @@
                     data: JSON.stringify(data),
                     contentType: "application/json",
                     success: function (response) {
+                        $("#matchName").text(response.name)
+                        $("#matchPicture").attr("src", response.photo)
+                        $("#matchModal").modal("toggle")
                         console.log(response)
                     }
                 })
@@ -207,6 +236,7 @@
                 alert("Please answer all the questions before submitting");
             }
         });
+        
     </script>
 
     <footer class="footer">

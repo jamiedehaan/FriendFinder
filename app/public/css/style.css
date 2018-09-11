@@ -1,6 +1,16 @@
 body {
     background: url("../images/background.png");
     background-size: 100%;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+footer {
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
 }
 
 .jumbotron {
